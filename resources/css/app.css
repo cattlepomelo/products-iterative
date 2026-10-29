@@ -2,6 +2,232 @@
 @tailwind components;
 @tailwind utilities;
 
-.vite-css-test {
-    color: #dc2626;
+.holy-grail-layout {
+    display: grid;
+    grid-template-areas:
+        "header"
+        "navigation"
+        "main"
+        "complementary"
+        "footer";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto auto;
+}
+
+.dark body {
+    color-scheme: dark;
+    background-color: #080d18;
+}
+
+.holy-grail-layout {
+    background-image:
+        radial-gradient(ellipse at 68% 0%, rgb(79 70 229 / 0.1), transparent 38%),
+        linear-gradient(145deg, #0b1120, #080d18 65%);
+    color: #e5e7eb;
+}
+
+.holy-grail-layout .text-gray-400,
+.holy-grail-layout .text-gray-500,
+.holy-grail-layout .text-gray-600 {
+    color: #cbd5e1;
+}
+
+.holy-grail-layout .text-gray-700 {
+    color: #e2e8f0;
+}
+
+.holy-grail-header {
+    grid-area: header;
+    padding: 1rem;
+    background-color: rgb(15 23 42 / 0.86);
+    border-bottom: 1px solid rgb(148 163 184 / 0.12);
+}
+
+.holy-grail-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.holy-grail-page-heading {
+    margin-top: 1rem;
+}
+
+.holy-grail-navigation {
+    grid-area: navigation;
+}
+
+.holy-grail-main {
+    grid-area: main;
+    min-width: 0;
+}
+
+.holy-grail-aside {
+    grid-area: complementary;
+    padding: 1.5rem;
+    background-color: rgb(15 23 42 / 0.62);
+}
+
+.holy-grail-aside p {
+    color: #cbd5e1;
+}
+
+.holy-grail-nav-link[aria-current="page"] {
+    color: #e0e7ff;
+    background: rgb(99 102 241 / 0.2);
+}
+
+.holy-grail-footer {
+    grid-area: footer;
+    padding: 1rem 1.5rem;
+}
+
+.dashboard-status-card {
+    border: 1px solid rgb(45 212 191 / 0.2);
+    background: linear-gradient(120deg, rgb(15 118 110 / 0.2), rgb(30 41 59 / 0.86));
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.2);
+}
+
+.dashboard-status-message {
+    color: #5eead4;
+}
+
+@media (min-width: 768px) {
+    .holy-grail-layout {
+        grid-template-areas:
+            "header header header"
+            "navigation main complementary"
+            "footer footer footer";
+        grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr) minmax(12rem, 16rem);
+        grid-template-rows: auto 1fr auto;
+    }
+
+    .holy-grail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+    }
+
+    .holy-grail-page-heading {
+        margin-top: 0;
+    }
+
+    .holy-grail-navigation {
+        border-right: 1px solid rgb(148 163 184 / 0.14);
+        border-bottom: 0;
+        background-color: rgb(15 23 42 / 0.72);
+    }
+
+    .holy-grail-navigation > .max-w-7xl {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 1rem;
+    }
+
+    .holy-grail-navigation > .max-w-7xl > .flex.justify-between {
+        height: auto;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .holy-grail-navigation > .max-w-7xl > .flex.justify-between > .flex:first-child {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .holy-grail-navigation .holy-grail-account {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+
+    .holy-grail-account > .relative {
+        width: 100%;
+    }
+
+    .holy-grail-account-trigger {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.5rem;
+        border: 1px solid rgb(148 163 184 / 0.18);
+        background: rgb(30 41 59 / 0.72);
+        text-align: left;
+    }
+
+    .holy-grail-account [x-show] {
+        position: static;
+        width: 100%;
+        margin-top: 0.5rem;
+        transform: none;
+        transform-origin: top;
+    }
+
+    .holy-grail-account [x-show] > div {
+        overflow: hidden;
+        border: 1px solid rgb(148 163 184 / 0.14);
+        border-radius: 0.75rem;
+        background: #111827;
+        box-shadow: 0 12px 24px rgb(0 0 0 / 0.24);
+    }
+
+    .holy-grail-navigation .hidden.space-x-8 {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 1rem 0 0;
+    }
+
+    .holy-grail-navigation .hidden.space-x-8 > * {
+        margin: 0;
+    }
+
+    .holy-grail-main {
+        padding: 1rem;
+    }
+
+    .holy-grail-aside {
+        border-left: 1px solid rgb(148 163 184 / 0.14);
+        background-color: rgb(15 23 42 / 0.52);
+    }
+}
+
+.products-page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.products-panel {
+    border: 1px solid rgb(148 163 184 / 0.12);
+    background: linear-gradient(145deg, rgb(30 41 59 / 0.88), rgb(15 23 42 / 0.92));
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.22);
+}
+
+.products-table th {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+}
+
+@media (max-width: 639px) {
+    .products-page-heading {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .products-create-button {
+        align-self: flex-start;
+    }
 }

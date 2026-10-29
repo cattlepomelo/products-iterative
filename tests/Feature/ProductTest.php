@@ -17,6 +17,23 @@ class ProductTest extends TestCase
             ->assertRedirect(route('login'));
     }
 
+    public function test_home_page_displays_the_product_catalog_branding(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSeeText('Produktu katalogs')
+            ->assertSeeText('Tavs produktu katalogs vienuviet.');
+    }
+
+    public function test_dashboard_displays_the_active_dashboard_navigation_link(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->get(route('dashboard'))
+            ->assertOk()
+            ->assertSeeText('Dashboard')
+            ->assertSee('aria-current="page"', false);
+    }
+
     public function test_authenticated_user_can_view_products(): void
     {
         $user = User::factory()->create();
@@ -29,6 +46,13 @@ class ProductTest extends TestCase
         $this->actingAs($user)
             ->get(route('products.index'))
             ->assertOk()
+            ->assertSee('holy-grail-layout')
+            ->assertSee('holy-grail-navigation')
+            ->assertSee('holy-grail-main')
+            ->assertSee('holy-grail-aside')
+            ->assertSee('holy-grail-footer')
+            ->assertSeeText('Informācija')
+            ->assertSee('aria-current="page"', false)
             ->assertSeeText($product->name)
             ->assertSeeText('12,50 €');
     }
