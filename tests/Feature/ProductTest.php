@@ -17,12 +17,10 @@ class ProductTest extends TestCase
             ->assertRedirect(route('login'));
     }
 
-    public function test_home_page_displays_the_product_catalog_branding(): void
+    public function test_home_page_redirects_to_the_product_list(): void
     {
         $this->get(route('home'))
-            ->assertOk()
-            ->assertSeeText('Produktu katalogs')
-            ->assertSeeText('Tavs produktu katalogs vienuviet.');
+            ->assertRedirect(route('products.index'));
     }
 
     public function test_dashboard_displays_the_active_dashboard_navigation_link(): void
@@ -53,7 +51,11 @@ class ProductTest extends TestCase
             ->assertSee('holy-grail-main')
             ->assertSee('holy-grail-aside')
             ->assertSee('holy-grail-footer')
-            ->assertSeeText('Informācija')
+            ->assertSeeText('Musordrop')
+            ->assertSee('https://media1.tenor.com/m/92fiqKsu_YoAAAAC/cs2-musor-drop.gif')
+            ->assertDontSee('youtube.com')
+            ->assertDontSee('<iframe', false)
+            ->assertSeeText('Azartspēles var izraisīt atkarību.')
             ->assertSee('aria-current="page"', false)
             ->assertSeeText($product->name)
             ->assertSeeText('3')

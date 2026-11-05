@@ -35,8 +35,24 @@
             </main>
 
             <aside class="holy-grail-aside bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300" aria-label="Papildu informācija">
-                <h2 class="font-semibold text-lg text-slate-100">Informācija</h2>
-                <p class="mt-2 text-sm">Izmanto navigāciju, lai pārvaldītu produktus un konta iestatījumus.</p>
+                <div class="overflow-hidden rounded-xl border border-slate-700 bg-slate-900 text-white shadow-lg">
+                    <div class="relative aspect-video">
+                        <img
+                            class="h-full w-full object-cover"
+                            src="https://media1.tenor.com/m/92fiqKsu_YoAAAAC/cs2-musor-drop.gif"
+                            alt="Musordrop animēta reklāma"
+                            loading="lazy"
+                        >
+                        <span class="absolute right-3 top-3 rounded bg-black/70 px-2 py-1 text-xs font-bold">
+                            18+
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs font-semibold uppercase tracking-widest text-indigo-300">Reklāma</span>
+                        <h2 class="mt-1 font-semibold">Musordrop</h2>
+                        <p class="mt-2 text-xs text-gray-300">18+ Azartspēles var izraisīt atkarību.</p>
+                    </div>
+                </div>
             </aside>
 
             <footer class="holy-grail-footer text-sm text-gray-600 dark:text-gray-400">
