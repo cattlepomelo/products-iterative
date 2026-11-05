@@ -17,9 +17,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="products-panel bg-gray-800/80 overflow-hidden shadow-xl sm:rounded-2xl">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @if (session('status'))
-                        <p class="mb-5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">{{ session('status') }}</p>
-                    @endif
+                    <x-session-success class="mb-5" />
 
                     @if ($products->isEmpty())
                         <p>Produktu vēl nav.</p>

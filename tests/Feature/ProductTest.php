@@ -88,11 +88,15 @@ class ProductTest extends TestCase
     {
         $this->actingAs(User::factory()->create())
             ->from(route('products.create'))
+            ->followingRedirects()
             ->post(route('products.store'), [
                 'name' => '',
             ])
-            ->assertRedirect(route('products.create'))
-            ->assertSessionHasErrors(['name', 'quantity', 'status']);
+            ->assertOk()
+            ->assertSee('role="alert"', false)
+            ->assertSee('The name field is required.')
+            ->assertSee('The quantity field is required.')
+            ->assertSee('The status field is required.');
 
         $this->actingAs(User::factory()->create())
             ->from(route('products.create'))
@@ -104,6 +108,24 @@ class ProductTest extends TestCase
             ])
             ->assertRedirect(route('products.create'))
             ->assertSessionHasErrors(['quantity', 'expiration_date']);
+    }
+
+    public function test_successful_product_action_displays_flash_message(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->followingRedirects()
+            ->post(route('products.store'), [
+                'name' => 'Jauns produkts',
+                'quantity' => 5,
+                'description' => 'Apraksts',
+                'expiration_date' => '2027-06-30',
+                'status' => 'Pieejams',
+            ])
+            ->assertOk()
+            ->assertSee('role="status"', false)
+            ->assertSee('Produkts veiksmīgi izveidots.');
     }
 
     public function test_product_can_be_viewed_edited_and_deleted_using_route_model_binding(): void
