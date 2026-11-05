@@ -58,14 +58,16 @@ class ProductController extends Controller
     }
 
     /**
-     * @return array{name: string, description: ?string, price: string}
+     * @return array{name: string, quantity: int|string, description: ?string, expiration_date: ?string, status: string}
      */
     private function validatedData(Request $request): array
     {
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'quantity' => ['required', 'integer', 'min:0'],
             'description' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'expiration_date' => ['nullable', 'date'],
+            'status' => ['required', 'string', 'max:255'],
         ]);
     }
 }

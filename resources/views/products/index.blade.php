@@ -4,7 +4,7 @@
             <div>
                 <p class="text-sm font-semibold uppercase tracking-widest text-indigo-400">Katalogs</p>
                 <h2 class="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">Produkti</h2>
-                <p class="mt-2 text-sm text-gray-400">Pārvaldi sava kataloga produktus un to cenas.</p>
+                <p class="mt-2 text-sm text-gray-400">Pārvaldi sava kataloga produktus, daudzumu un statusu.</p>
             </div>
             <a href="{{ route('products.create') }}" class="products-create-button inline-flex items-center justify-center px-5 py-3 bg-indigo-500 border border-indigo-400/30 rounded-xl font-semibold text-sm text-white shadow-lg shadow-indigo-950/40 hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2 focus:ring-offset-gray-900 transition">
                 <span aria-hidden="true" class="me-2 text-lg leading-none">+</span>
@@ -29,7 +29,8 @@
                                 <thead class="text-gray-400">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Nosaukums</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Cena</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Daudzums</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Statuss</th>
                                         <th class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">Darbības</th>
                                     </tr>
                                 </thead>
@@ -41,7 +42,8 @@
                                                     {{ $product->name }}
                                                 </a>
                                             </td>
-                                            <td class="px-4 py-4 font-medium text-gray-200">{{ number_format((float) $product->price, 2, ',', ' ') }} €</td>
+                                            <td class="px-4 py-4 font-medium text-gray-200">{{ $product->quantity }}</td>
+                                            <td class="px-4 py-4 font-medium text-gray-200">{{ $product->status }}</td>
                                             <td class="px-4 py-4 text-right whitespace-nowrap">
                                                 <a class="text-indigo-300 hover:text-indigo-200" href="{{ route('products.edit', $product) }}">Rediģēt</a>
                                                 <form class="inline-block ms-3" method="POST" action="{{ route('products.destroy', $product) }}" onsubmit="return confirm('Vai tiešām dzēst šo produktu?')">

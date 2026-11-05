@@ -39,8 +39,10 @@ class ProductTest extends TestCase
         $user = User::factory()->create();
         $product = Product::create([
             'name' => 'Piemēra produkts',
+            'quantity' => 3,
             'description' => 'Produkta apraksts',
-            'price' => '12.50',
+            'expiration_date' => '2027-01-15',
+            'status' => 'active',
         ]);
 
         $this->actingAs($user)
@@ -54,7 +56,8 @@ class ProductTest extends TestCase
             ->assertSeeText('Informācija')
             ->assertSee('aria-current="page"', false)
             ->assertSeeText($product->name)
-            ->assertSeeText('12,50 €');
+            ->assertSeeText('3')
+            ->assertSeeText('active');
     }
 
     public function test_product_can_be_created(): void
@@ -64,29 +67,43 @@ class ProductTest extends TestCase
         $this->actingAs($user)
             ->post(route('products.store'), [
                 'name' => 'Jauns produkts',
+                'quantity' => '5',
                 'description' => 'Apraksts',
-                'price' => '9.99',
+                'expiration_date' => '2027-06-30',
+                'status' => 'active',
             ])
             ->assertRedirect(route('products.show', Product::first()))
             ->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('products', [
             'name' => 'Jauns produkts',
+            'quantity' => 5,
             'description' => 'Apraksts',
-            'price' => '9.99',
+            'expiration_date' => '2027-06-30',
+            'status' => 'active',
         ]);
     }
 
-    public function test_product_creation_validates_required_fields_and_price(): void
+    public function test_product_creation_validates_required_fields_and_product_data(): void
     {
         $this->actingAs(User::factory()->create())
             ->from(route('products.create'))
             ->post(route('products.store'), [
                 'name' => '',
-                'price' => '-1',
             ])
             ->assertRedirect(route('products.create'))
-            ->assertSessionHasErrors(['name', 'price']);
+            ->assertSessionHasErrors(['name', 'quantity', 'status']);
+
+        $this->actingAs(User::factory()->create())
+            ->from(route('products.create'))
+            ->post(route('products.store'), [
+                'name' => 'Nederīgs produkts',
+                'quantity' => '-1',
+                'expiration_date' => 'not-a-date',
+                'status' => 'active',
+            ])
+            ->assertRedirect(route('products.create'))
+            ->assertSessionHasErrors(['quantity', 'expiration_date']);
     }
 
     public function test_product_can_be_viewed_edited_and_deleted_using_route_model_binding(): void
@@ -94,8 +111,10 @@ class ProductTest extends TestCase
         $user = User::factory()->create();
         $product = Product::create([
             'name' => 'Sākotnējais nosaukums',
+            'quantity' => 1,
             'description' => null,
-            'price' => '10.00',
+            'expiration_date' => null,
+            'status' => 'active',
         ]);
 
         $this->actingAs($user)
@@ -111,8 +130,10 @@ class ProductTest extends TestCase
         $this->actingAs($user)
             ->put(route('products.update', $product), [
                 'name' => 'Atjaunināts nosaukums',
+                'quantity' => '4',
                 'description' => 'Jauns apraksts',
-                'price' => '14.25',
+                'expiration_date' => '2027-12-01',
+                'status' => 'inactive',
             ])
             ->assertRedirect(route('products.show', $product))
             ->assertSessionHasNoErrors();
@@ -120,7 +141,9 @@ class ProductTest extends TestCase
         $this->assertDatabaseHas('products', [
             'id' => $product->id,
             'name' => 'Atjaunināts nosaukums',
-            'price' => '14.25',
+            'quantity' => 4,
+            'expiration_date' => '2027-12-01',
+            'status' => 'inactive',
         ]);
 
         $this->actingAs($user)

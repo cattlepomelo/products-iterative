@@ -18,8 +18,16 @@
 
                     <dl class="space-y-4">
                         <div>
-                            <dt class="font-medium">Cena</dt>
-                            <dd>{{ number_format((float) $product->price, 2, ',', ' ') }} €</dd>
+                            <dt class="font-medium">Daudzums</dt>
+                            <dd>{{ $product->quantity }}</dd>
+                        </div>
+                        <div>
+                            <dt class="font-medium">Derīguma termiņš</dt>
+                            <dd>{{ $product->expiration_date?->format('d.m.Y') ?? 'Nav norādīts.' }}</dd>
+                        </div>
+                        <div>
+                            <dt class="font-medium">Statuss</dt>
+                            <dd>{{ $product->status }}</dd>
                         </div>
                         <div>
                             <dt class="font-medium">Apraksts</dt>
